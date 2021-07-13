@@ -6,4 +6,65 @@
     <changeSet id="dbInit" author="Djambong Tenkeu Hank-Debain">
         <tagDatabase tag="dbInit" xml:lang="en"/>
     </changeSet>
+
+    <changeSet id="quiz-02-create-quiz-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="QUIZ"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-02/create-quiz-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-02/drop-quiz-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-02-create-quiz-sequence" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <sequenceExists sequenceName="QUIZ_ID_SEQ"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-02/create-quiz-seq.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-02/drop-quiz-seq.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-03-create-question-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="QUESTION"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-03/create-question-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-03/drop-question-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-03-create-question-sequence" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <sequenceExists sequenceName="QUESTION_ID_SEQ"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-03/create-question-seq.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-03/drop-question-seq.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-04-create-quiz_to_question-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="QUIZ_TO_QUESTION"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-04/create-quiz_to_question-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-04/drop-quiz_to_question-table.sql"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
