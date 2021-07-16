@@ -49,6 +49,7 @@ public class Quiz {
     @Convert(converter = QuizState.QuizStateConverter.class)
     private QuizState state;
 
+    @OrderBy("ID ASC")
     @Fetch(FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<Question> questions;
