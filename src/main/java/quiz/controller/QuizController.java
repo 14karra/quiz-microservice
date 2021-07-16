@@ -27,6 +27,12 @@ public class QuizController {
         return quizService.getAllQuizzes();
     }
 
+    @GetMapping(value = "/active", produces = "application/json;charset=UTF-8")
+    public List<Quiz> getActiveQuizzes() {
+        log.info("Request to get all active quizzes received.");
+        return quizService.getActiveQuizzes();
+    }
+
     @GetMapping(value = "/{id}", produces = "application/json;charset=UTF-8")
     public Quiz getQuiz(@PathVariable(value = "id") Long id) {
         log.info("Request to get the quiz with ID={} received.", id);

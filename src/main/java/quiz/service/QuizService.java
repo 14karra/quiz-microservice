@@ -48,6 +48,11 @@ public class QuizService {
         return repository.findAll();
     }
 
+    public List<Quiz> getActiveQuizzes() {
+        log.info("Getting active quizzes");
+        return repository.findQuizByState(QuizState.ACTIVE);
+    }
+
     public Quiz saveQuiz(Quiz newQuiz) {
         if (newQuiz.getId() != null) {
             throw new AttemptToUpdateIdException();
