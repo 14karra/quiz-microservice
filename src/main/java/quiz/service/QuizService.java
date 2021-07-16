@@ -24,6 +24,17 @@ public class QuizService {
         this.repository = repository;
     }
 
+    public boolean quizExists(Long id) {
+        log.info("Checking if quiz with ID={} exists", id);
+        boolean instanceExists = repository.existsById(id);
+        if (instanceExists) {
+            log.info("Quiz with ID={} was found", id);
+        } else {
+            log.warn("Quiz with ID={} not found", id);
+        }
+        return instanceExists;
+    }
+
     public Quiz getQuiz(Long id) {
         log.info("Getting the quiz with ID={}", id);
         return repository.findById(id).orElseThrow(() -> {
@@ -54,9 +65,9 @@ public class QuizService {
             newQuiz.setId(quiz.getId());
             newQuiz.setCreationDate(quiz.getCreationDate());
             updateDates(newQuiz, quiz);
-            return repository.saveAndFlush(newQuiz);
+            return repository.save(newQuiz);
         }).orElseThrow(() -> {
-            log.warn("Transaction with ID={} not found", id);
+            log.warn("Quiz with ID={} not found", id);
             return new QuizNotFoundException(id);
         });
     }

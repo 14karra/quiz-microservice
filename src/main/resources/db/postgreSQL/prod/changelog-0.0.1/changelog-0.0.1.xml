@@ -55,15 +55,15 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="quiz-04-create-quiz_to_question-table" author="Djambong Tenkeu Hank-Debain">
+    <changeSet id="quiz-04-create-question_to_quiz-table" author="Djambong Tenkeu Hank-Debain">
         <preConditions onFail="HALT">
             <not>
-                <tableExists tableName="QUIZ_TO_QUESTION"/>
+                <tableExists tableName="QUESTION_TO_QUIZ"/>
             </not>
         </preConditions>
-        <sqlFile path="db/postgreSQL/prod/changelog-0.0.1/QUIZ-04/create-quiz_to_question-table.sql"/>
+        <sqlFile path="db/postgreSQL/prod/changelog-0.0.1/QUIZ-04/create-question_to_quiz-table.sql"/>
         <rollback>
-            <sqlFile path="db/postgreSQL/prod/changelog-0.0.1/QUIZ-04/drop-quiz_to_question-table.sql"/>
+            <sqlFile path="db/postgreSQL/prod/changelog-0.0.1/QUIZ-04/drop-question_to_quiz-table.sql"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>
