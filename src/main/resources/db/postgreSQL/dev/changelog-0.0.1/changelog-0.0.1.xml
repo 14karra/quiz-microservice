@@ -77,4 +77,116 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="quiz-05-create-answer-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="ANSWER"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/create-answer-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/drop-answer-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-05-create-answer-sequence" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <sequenceExists sequenceName="ANSWER_ID_SEQ"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/create-answer-seq.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/drop-answer-seq.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-05-answer-add-fk" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="answer_question_fk"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/answer-add-fk.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/answer-drop-fk.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="answer-05-answer-add-index" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <indexExists indexName="answer_question_i"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/answer-add-index.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/answer-drop-index.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-06-create-correct_answer-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="CORRECT_ANSWER"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-06/create-correct_answer-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-06/drop-correct_answer-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-07-create-participant-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="PARTICIPANT"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-07/create-participant-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-07/drop-participant-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-07-create-participant-sequence" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <sequenceExists sequenceName="PARTICIPANT_ID_SEQ"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-07/create-participant-seq.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-07/drop-participant-seq.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-08-create-participant_answer-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="PARTICIPANT_ANSWER"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-08/create-participant_answer-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-08/drop-participant_answer-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-09-create-possible_answer-table" author="Djambong Tenkeu Hank-Debain">
+        <preConditions onFail="HALT">
+            <not>
+                <tableExists tableName="POSSIBLE_ANSWER"/>
+            </not>
+        </preConditions>
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-09/create-possible_answer-table.sql"/>
+        <rollback>
+            <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-09/drop-possible_answer-table.sql"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="quiz-05-drop-question_id-columns" author="Djambong Tenkeu Hank-Debain">
+        <sqlFile path="db/postgreSQL/dev/changelog-0.0.1/QUIZ-05/drop-question_id-column.sql"/>
+    </changeSet>
+
 </databaseChangeLog>
