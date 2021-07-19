@@ -1,13 +1,11 @@
-package quiz.controller;
+package quiz.controllerAdvice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import quiz.exception.AttemptToUpdateIdException;
-import quiz.exception.NonexistentFKDataException;
-import quiz.exception.UniqueConstraintException;
+import quiz.exception.*;
 import quiz.model.Response;
 
 @ControllerAdvice
@@ -17,6 +15,13 @@ public class BaseExceptionHandler {
     @ExceptionHandler(AttemptToUpdateIdException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     Response attemptToUpdateIdHandler(AttemptToUpdateIdException ex) {
+        return new Response(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(DataMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    Response dataMismatchExceptionHandler(DataMismatchException ex) {
         return new Response(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 
@@ -32,5 +37,12 @@ public class BaseExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     Response nonexistentFKDataExceptionHandler(NonexistentFKDataException ex) {
         return new Response(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(FieldAccessException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    Response fieldAccessExceptionHandler(FieldAccessException ex) {
+        return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
 }

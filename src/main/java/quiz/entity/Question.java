@@ -1,9 +1,12 @@
 package quiz.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 
 @Entity
@@ -35,6 +38,27 @@ public class Question {
     )
     private Quiz quiz;
 
+    @Fetch(FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "POSSIBLE_ANSWER",
+            joinColumns = {@JoinColumn(name = "question_id")},
+            inverseJoinColumns = {@JoinColumn(name = "answer_id")}
+    )
+    private Set<Answer> possibleAnswers;
+
+    @Fetch(FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "CORRECT_ANSWER",
+            joinColumns = {@JoinColumn(name = "question_id")},
+            inverseJoinColumns = {@JoinColumn(name = "answer_id")}
+    )
+    private Set<Answer> correctAnswers;
+
+    @Transient
+    private Set<Answer> participantAnswers;
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -42,6 +66,8 @@ public class Question {
                 .append("ID=").append(id)
                 .append(", LABEL=").append(label)
                 .append(", TYPE=").append(type)
+                .append(", POSSIBLE_ANSWER=").append(possibleAnswers)
+                .append(", CORRECT_ANSWER=").append(correctAnswers)
                 .append(" }");
         return sb.toString();
     }
@@ -64,10 +90,22 @@ public class Question {
             return this;
         }
 
+        public Builder possibleAnswers(Set<Answer> possibleAnswers) {
+            buf.setPossibleAnswers(possibleAnswers);
+            return this;
+        }
+
+        public Builder correctAnswers(Set<Answer> correctAnswers) {
+            buf.setCorrectAnswers(correctAnswers);
+            return this;
+        }
+
         public Question build() {
             Question question = new Question();
             question.setLabel(buf.getLabel());
             question.setType(buf.getType());
+            question.setPossibleAnswers(buf.getPossibleAnswers());
+            question.setCorrectAnswers(buf.getCorrectAnswers());
             return question;
         }
     }
@@ -103,5 +141,28 @@ public class Question {
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
     }
-}
 
+    public Set<Answer> getPossibleAnswers() {
+        return possibleAnswers;
+    }
+
+    public void setPossibleAnswers(Set<Answer> possibleAnswers) {
+        this.possibleAnswers = possibleAnswers;
+    }
+
+    public Set<Answer> getCorrectAnswers() {
+        return correctAnswers;
+    }
+
+    public void setCorrectAnswers(Set<Answer> correctAnswers) {
+        this.correctAnswers = correctAnswers;
+    }
+
+    public Set<Answer> getParticipantAnswers() {
+        return participantAnswers;
+    }
+
+    public void setParticipantAnswers(Set<Answer> participantAnswers) {
+        this.participantAnswers = participantAnswers;
+    }
+}

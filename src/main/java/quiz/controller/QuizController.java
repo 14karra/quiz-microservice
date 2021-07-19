@@ -3,14 +3,17 @@ package quiz.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import quiz.decorator.AddParticipantAnswers;
+import quiz.decorator.QuizControllerDecorator;
 import quiz.entity.Quiz;
 import quiz.model.Response;
 import quiz.service.QuizService;
 
 import java.util.List;
+import java.util.Set;
 
-@RestController
-@RequestMapping(QuizController.PATH)
+@QuizControllerDecorator
+@RequestMapping(quiz.controller.QuizController.PATH)
 public class QuizController {
 
     public static final String PATH = "/api/quiz/quiz";
@@ -31,6 +34,13 @@ public class QuizController {
     public List<Quiz> getActiveQuizzes() {
         log.info("Request to get all active quizzes received.");
         return quizService.getActiveQuizzes();
+    }
+
+    @AddParticipantAnswers
+    @GetMapping(value = "/passed-quizzes/{participantId}", produces = "application/json;charset=UTF-8")
+    public Set<Quiz> getPassedQuizzes(@PathVariable("participantId") Long participantId) {
+        log.info("Request to get quizzes passed by the participant with ID={} received.", participantId);
+        return quizService.getQuizzesPassedByParticipant(participantId);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json;charset=UTF-8")

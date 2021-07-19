@@ -13,6 +13,7 @@ import quiz.repository.QuizRepository;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class QuizService {
@@ -93,5 +94,10 @@ public class QuizService {
         log.info("Deleting quiz with ID={}", id);
         repository.deleteById(id);
         return new Response(HttpStatus.OK.value(), "Quiz with ID=" + id + " has been deleted.");
+    }
+
+    public Set<Quiz> getQuizzesPassedByParticipant(Long participantId) {
+        log.info("getting quizzes passed by the participant with ID={}", participantId);
+        return repository.getQuizzesPassedByParticipant(participantId);
     }
 }

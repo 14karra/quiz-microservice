@@ -13,6 +13,8 @@ import quiz.exception.QuestionNotFoundException;
 import quiz.model.Response;
 import quiz.repository.QuestionRepository;
 
+import java.util.Optional;
+
 @Service
 public class QuestionService {
 
@@ -29,15 +31,8 @@ public class QuestionService {
         this.questionToQuizService = questionToQuizService;
     }
 
-    public boolean questionExists(Long id) {
-        log.info("Checking if question with ID={} exists", id);
-        boolean instanceExists = repository.existsById(id);
-        if (instanceExists) {
-            log.info("Question with ID={} was found", id);
-        } else {
-            log.warn("Question with ID={} was not found", id);
-        }
-        return instanceExists;
+    public Optional<Question> getQuestion(Long id) {
+        return repository.findById(id);
     }
 
     public Question saveQuestion(Long quizId, Question newQuestion) {

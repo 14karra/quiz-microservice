@@ -9,16 +9,16 @@ import java.util.stream.Stream;
 
 
 @Entity
-@Table(name = "QUESTION_TO_QUIZ")
-public class QuestionToQuiz {
+@Table(name = "CORRECT_ANSWER")
+public class CorrectAnswer {
 
     @EmbeddedId
     private CompositeKey compositeKey;
 
-    public QuestionToQuiz() {
+    public CorrectAnswer() {
     }
 
-    public QuestionToQuiz(CompositeKey compositeKey) {
+    public CorrectAnswer(CompositeKey compositeKey) {
         this.compositeKey = compositeKey;
     }
 
@@ -28,13 +28,13 @@ public class QuestionToQuiz {
         @Column(name = "QUESTION_ID", unique = true)
         private Long questionId;
 
-        @Column(name = "QUIZ_ID")
-        private Long quizId;
+        @Column(name = "ANSWER_ID")
+        private Long answerId;
 
         @PreRemove
         @PrePersist
         public void isStructurallyValid() {
-            if (Stream.of(questionId, quizId)
+            if (Stream.of(questionId, answerId)
                     .anyMatch(value -> Objects.isNull(value) || value <= 0)) {
                 throw new InvalidPrimaryKeyFormatException(this);
             }
@@ -43,9 +43,9 @@ public class QuestionToQuiz {
         public CompositeKey() {
         }
 
-        public CompositeKey(Long questionId, Long quizId) {
+        public CompositeKey(Long questionId, Long answerId) {
             this.questionId = questionId;
-            this.quizId = quizId;
+            this.answerId = answerId;
         }
 
         @Override
@@ -54,12 +54,12 @@ public class QuestionToQuiz {
             if (!(o instanceof CompositeKey)) return false;
             CompositeKey that = (CompositeKey) o;
             return getQuestionId().equals(that.getQuestionId()) &&
-                    getQuizId().equals(that.getQuizId());
+                    getAnswerId().equals(that.getAnswerId());
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getQuestionId(), getQuizId());
+            return Objects.hash(getQuestionId(), getAnswerId());
         }
 
         @Override
@@ -67,7 +67,7 @@ public class QuestionToQuiz {
             StringBuilder sb = new StringBuilder();
             sb.append("COMPOSITE_KEY { ")
                     .append("QUESTION_ID=").append(questionId)
-                    .append(", QUIZ_ID=").append(quizId)
+                    .append(", ANSWER_ID=").append(answerId)
                     .append(" }");
             return sb.toString();
         }
@@ -80,19 +80,19 @@ public class QuestionToQuiz {
             this.questionId = questionId;
         }
 
-        public Long getQuizId() {
-            return quizId;
+        public Long getAnswerId() {
+            return answerId;
         }
 
-        public void setQuizId(Long quizId) {
-            this.quizId = quizId;
+        public void setAnswerId(Long answerId) {
+            this.answerId = answerId;
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("QUESTION_TO_QUIZ { ")
+        sb.append("CORRECT_ANSWER { ")
                 .append("COMPOSITE_KEY=").append(compositeKey)
                 .append(" }");
         return sb.toString();
@@ -100,13 +100,13 @@ public class QuestionToQuiz {
 
     public static class Builder {
 
-        private final QuestionToQuiz buff;
+        private final CorrectAnswer buff;
 
         public Builder() {
-            buff = new QuestionToQuiz();
+            buff = new CorrectAnswer();
         }
 
-        public Builder(QuestionToQuiz buff) {
+        public Builder(CorrectAnswer buff) {
             this.buff = buff;
         }
 
@@ -115,8 +115,8 @@ public class QuestionToQuiz {
             return this;
         }
 
-        public QuestionToQuiz build() {
-            QuestionToQuiz questionToQuiz = new QuestionToQuiz();
+        public CorrectAnswer build() {
+            CorrectAnswer questionToQuiz = new CorrectAnswer();
             questionToQuiz.setCompositeKey(buff.getCompositeKey());
             return questionToQuiz;
         }

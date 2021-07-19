@@ -1,10 +1,11 @@
-package quiz.controller;
+package quiz.controllerAdvice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import quiz.controller.QuizController;
 import quiz.exception.QuizNotFoundException;
 import quiz.model.Response;
 
