@@ -3,7 +3,7 @@ package quiz.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import quiz.context.QuestionTypeContext;
+import quiz.config.QuestionTypeContext;
 import quiz.entity.ParticipantAnswer;
 import quiz.entity.Question;
 import quiz.entity.QuestionType;

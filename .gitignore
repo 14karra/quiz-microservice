@@ -56,3 +56,7 @@ build/
 .vscode/
 /mvnw.cmd
 /mvnw
+/.idea/
+/src/main/frontend/node/node_modules/
+/src/main/frontend/node/**
+/src/main/frontend/node/

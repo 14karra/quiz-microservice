@@ -33,8 +33,8 @@ public class Answer {
 
         private final Answer buf;
 
-        public Builder(Answer buf) {
-            this.buf = buf;
+        public Builder() {
+            buf = new Answer();
         }
 
         public Builder text(String text) {
