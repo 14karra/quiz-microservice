@@ -2,11 +2,9 @@ package quiz.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import quiz.entity.Answer;
 import quiz.exception.AttemptToUpdateIdException;
-import quiz.model.Response;
 import quiz.repository.AnswerRepository;
 
 import java.util.List;
@@ -42,6 +40,5 @@ public class AnswerService {
     public void deleteAnswer(Long id) {
         log.info("Deleting answer with ID={}", id);
         repository.deleteById(id);
-        new Response(HttpStatus.OK.value(), "Answer with ID=" + id + " has been deleted.");
     }
 }

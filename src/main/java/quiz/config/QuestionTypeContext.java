@@ -1,4 +1,4 @@
-package quiz.context;
+package quiz.config;
 
 import org.springframework.stereotype.Component;
 import quiz.entity.ParticipantAnswer;
